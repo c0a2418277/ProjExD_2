@@ -30,6 +30,29 @@ def check_bound(rct: pg.Rect) -> tuple[bool,bool]:
     return yoko,tate
 
 
+def gameover(screen: pg.Surface) -> None:
+    kuro =pg.Surface((WIDTH, HEIGHT))
+    kuro.fill((0,0,0)) #色指定
+    kuro.set_alpha(150) #半透明
+    screen.blit(kuro,(0,0))
+
+    kk_cry = pg.image.load("fig/8.png") #画像を表示
+    kk_cry1_rect =kk_cry.get_rect(center = (WIDTH//3, HEIGHT//2)) #大きさと場所を設定
+    kk_cry2_rect = kk_cry.get_rect(center =(2*WIDTH//3, HEIGHT//2 ))
+    screen.blit(kk_cry,kk_cry1_rect)
+    screen.blit(kk_cry,kk_cry2_rect)
+
+    fonto =pg.font.Font(None,80)
+    txt = fonto.render("Game Over", True, (225,225,225)) #文字
+    txt_rect = txt.get_rect(center=(WIDTH//2,HEIGHT//2)) #大きさ
+
+    screen.blit(txt,txt_rect)
+
+    pg.display.update()
+
+    time.sleep(5)
+
+
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
@@ -48,40 +71,7 @@ def main():
 
     bb_rct.center = random.randint(0, WIDTH), random.randint(0, HEIGHT)
     clock = pg.time.Clock()
-    tmr = 0
-
-    def gameover(screen: pg.Surface) -> None:
-        kuro =pg.Surface((WIDTH, HEIGHT))
-        kuro.fill((0,0,0)) #色指定
-        kuro.set_alpha(150) #半透明
-        screen.blit(kuro,(0,0))
-
-        kk_cry = pg.image.load("fig/8.png") #画像を表示
-        kk_cry1_rect =kk_cry.get_rect(center = (WIDTH//3, HEIGHT//2)) #大きさと場所を設定
-        kk_cry2_rect = kk_cry.get_rect(center =(2*WIDTH//3, HEIGHT//2 ))
-        screen.blit(kk_cry,kk_cry1_rect)
-        screen.blit(kk_cry,kk_cry2_rect)
-
-        fonto =pg.font.Font(None,80)
-        txt = fonto.render("Game Over", True, (225,225,225)) #文字
-        txt_rect = txt.get_rect(center=(WIDTH//2,HEIGHT//2)) #大きさ
-
-        screen.blit(txt,txt_rect)
-
-        pg.display.update()
-
-        time.sleep(5)
-
-
-        
-        
-   
-
-        
-       
-        
-        
-        
+    tmr = 0       
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
@@ -91,13 +81,10 @@ def main():
         if kk_rct.colliderect(bb_rct):
             gameover(screen)
            
-        
-
         if kk_rct.colliderect(bb_rct):
             print("Game over")
             return
         
-
         key_lst = pg.key.get_pressed()
         sum_mv = [0, 0]
         for key, mv in DELTA.items():
@@ -108,7 +95,7 @@ def main():
         
         kk_rct.move_ip(sum_mv)
         if check_bound(kk_rct) != (True,True):
-            kk_rct.move_in(-sum_mv[0],-sum_mv[1])
+            kk_rct.move_ip(-sum_mv[0],-sum_mv[1])
         bb_rct.move_ip(vx,vy)
         yoko, tate =check_bound(bb_rct)
         if not yoko:
