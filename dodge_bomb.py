@@ -94,7 +94,7 @@ def main():
         
 
         if kk_rct.colliderect(bb_rct):
-            print("game over")
+            print("Game over")
             return
         
 
