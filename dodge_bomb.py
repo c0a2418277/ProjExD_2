@@ -68,6 +68,8 @@ def main():
 
         screen.blit(txt,txt_rect)
 
+        pg.display.update()
+
         time.sleep(5)
        
         
