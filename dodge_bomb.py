@@ -52,25 +52,32 @@ def main():
 
     def gameover(screen: pg.Surface) -> None:
         kuro =pg.Surface((WIDTH, HEIGHT))
-        kuro.fill((0,0,0))#色指定
-        kuro.set_alpha(150)#半透明
+        kuro.fill((0,0,0)) #色指定
+        kuro.set_alpha(150) #半透明
         screen.blit(kuro,(0,0))
 
-        kk_cry = pg.image.load("fig/8.png")#画像を表示
-        kk_cry1_rect =kk_cry.get_rect(center = (WIDTH//3, HEIGHT//2))#大きさと場所を設定
+        kk_cry = pg.image.load("fig/8.png") #画像を表示
+        kk_cry1_rect =kk_cry.get_rect(center = (WIDTH//3, HEIGHT//2)) #大きさと場所を設定
         kk_cry2_rect = kk_cry.get_rect(center =(2*WIDTH//3, HEIGHT//2 ))
         screen.blit(kk_cry,kk_cry1_rect)
         screen.blit(kk_cry,kk_cry2_rect)
 
         fonto =pg.font.Font(None,80)
-        txt = fonto.render("Game Over", True, (225,225,225))#文字
-        txt_rect = txt.get_rect(center=(WIDTH//2,HEIGHT//2))#大きさ
+        txt = fonto.render("Game Over", True, (225,225,225)) #文字
+        txt_rect = txt.get_rect(center=(WIDTH//2,HEIGHT//2)) #大きさ
 
         screen.blit(txt,txt_rect)
 
         pg.display.update()
 
         time.sleep(5)
+
+
+        
+        
+   
+
+        
        
         
         
